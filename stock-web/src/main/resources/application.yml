@@ -3,10 +3,11 @@ server:
 debug: true
 spring:
   datasource:
-    name: test
-    url: jdbc:mysql://192.168.3.226:3307/mec
-    username: mec
-    password: 6HqCYyGO8B4M01mi
+    name: stock
+    url: jdbc:mysql://192.168.1.101/stock
+#    url: jdbc:mysql://192.168.3.226:3307/mec
+    username: root
+    password: root
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver

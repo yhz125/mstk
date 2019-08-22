@@ -7,7 +7,7 @@
  */
 package com.music125.stock.biz.dal;
 
-import com.music125.stock.biz.dal.model.LogDO;
+import com.music125.stock.biz.dal.model.KchartDO;
 
 /**
  * TODO
@@ -17,11 +17,13 @@ import com.music125.stock.biz.dal.model.LogDO;
  * @since 2019-08-22 17:36
  */
 public interface KchartMapper {
+
+
     /**
      * 对象入库
      *
-     * @param logDO 日志 入库对象
+     * @param kchartDO 日志 入库对象
      * @return 入库数目
      */
-    Integer insert(LogDO logDO);
+    Integer insert(KchartDO kchartDO);
 }
