@@ -30,6 +30,7 @@
         <module>stock-core</module>
         <module>stock-parse</module>
         <module>stock-web</module>
+        <module>stock-biz</module>
     </modules>
 
 </project>
