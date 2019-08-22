@@ -31,7 +31,7 @@ public class KchartParse {
             List<String> kdata = ParseUtils.getStringList(rootNode, "qfqday");
 
 
-            
+
             System.out.println(kdata);
 
 //            if(StringUtils.isNoneBlank(kdata)){
