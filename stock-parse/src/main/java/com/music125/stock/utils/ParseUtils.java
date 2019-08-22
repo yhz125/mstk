@@ -45,6 +45,24 @@ public class ParseUtils {
         }
         return value;
     }
+
+
+    public static String getValueToString(JsonNode jo, String name, String defaultValue) {
+
+        String value = defaultValue;
+        if (jo.has(name) && !jo.get(name).isNull()) {
+            try {
+                value = jo.get(name).toString();
+                if (StringUtils.isBlank(value) || NULL.equals(value)) {
+                    value = defaultValue;
+                }
+            } catch (Exception e) {
+                //                LOGGER.error("获取json对象:{},异常message:{}", name , e.getMessage(), e);
+            }
+        }
+        return value;
+    }
+
     public static String getStringValues(JsonNode jo, String name, String defaultValue) {
         String value = defaultValue;
         if (jo.has(name) && !jo.get(name).isNull()) {
