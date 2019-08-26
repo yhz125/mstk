@@ -23,9 +23,6 @@ public class HomeController {
     public long getTime(){
 
 
-        KchartDO kchartDO = new KchartDO();
-        kchartDO.setDate("2019-08-20");
-        kchartManager.insert(kchartDO);
         return System.currentTimeMillis();
     }
 }
