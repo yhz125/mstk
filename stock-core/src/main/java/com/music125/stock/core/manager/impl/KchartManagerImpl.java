@@ -20,7 +20,7 @@ public class KchartManagerImpl implements KchartManager {
     private KchartBizManager bizManager;
 
     @Override
-    public void insert(KchartDO kchartDO) {
+    public void insert() {
 
         List<KchartBO> list = KchartParse.parse("sz000839");
         if(!CollectionUtils.isEmpty(list)){
