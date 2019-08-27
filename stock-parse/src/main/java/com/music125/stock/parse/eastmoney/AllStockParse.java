@@ -7,12 +7,16 @@
  */
 package com.music125.stock.parse.eastmoney;
 
+import com.geccocrawler.gecco.GeccoEngine;
+import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.annotation.Request;
 import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.spider.HtmlBean;
 
 import java.util.List;
+
+import lombok.Data;
 
 /**
  * TODO
@@ -21,6 +25,8 @@ import java.util.List;
  * @version V1.0
  * @since 2019-08-27 18:46
  */
+@Data
+@Gecco(matchUrl="http://quote.eastmoney.com/stock_list.html",pipelines="stockPipelines")
 public class AllStockParse implements HtmlBean {
     private static final long serialVersionUID = 665662335318691818L;
 
@@ -29,5 +35,6 @@ public class AllStockParse implements HtmlBean {
 
 
     @HtmlField(cssPath="#quotesearch > ul:nth-child(4)")
-    private List<String> stocks;
+    private String stocks;
+
 }
