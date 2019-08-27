@@ -1,8 +1,6 @@
 package com.music125.stock.stockweb.controller;
 
 
-import com.music125.stock.biz.dal.model.KchartDO;
-import com.music125.stock.core.manager.KchartManager;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,15 +12,14 @@ import javax.annotation.Resource;
 public class HomeController {
 
 
-    @Resource
-    private KchartManager kchartManager;
+
 
 
 
     @RequestMapping(value = "/gettime",method = RequestMethod.GET)
     public long getTime(){
 
-
+        System.out.println("tttt");
         return System.currentTimeMillis();
     }
 }

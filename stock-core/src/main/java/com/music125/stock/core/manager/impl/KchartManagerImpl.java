@@ -26,10 +26,7 @@ public class KchartManagerImpl implements KchartManager {
         if(!CollectionUtils.isEmpty(list)){
 
             List<KchartDO> doList = KchartConverter.convertListBO2DO(list);
-            for (KchartDO item: doList) {
-                bizManager.insert(item);
-
-            }
+            bizManager.insert(doList);
 
         }
 
