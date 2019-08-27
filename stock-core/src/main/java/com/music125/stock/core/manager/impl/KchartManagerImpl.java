@@ -20,16 +20,13 @@ public class KchartManagerImpl implements KchartManager {
     private KchartBizManager bizManager;
 
     @Override
-    public void insert(KchartDO kchartDO) {
+    public void insert() {
 
         List<KchartBO> list = KchartParse.parse("sz000839");
         if(!CollectionUtils.isEmpty(list)){
 
             List<KchartDO> doList = KchartConverter.convertListBO2DO(list);
-            for (KchartDO item: doList) {
-                bizManager.insert(item);
-
-            }
+            bizManager.insert(doList);
 
         }
 

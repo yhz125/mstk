@@ -24,7 +24,7 @@ import java.util.List;
 public class KchartParse {
 
 
-    private static String url="http://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?p=1&param=%s,day,,,370,qfq";
+    private static String url="http://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?p=1&param=%s,day,,,1000,qfq";
 
 
 
@@ -47,7 +47,7 @@ public class KchartParse {
                 List<KchartBO> list = new ArrayList<>();
                 KchartResponse kcharResult = JSON.parseObject(kdata, KchartResponse.class);
                 if(kcharResult!=null && !CollectionUtils.isEmpty(kcharResult.qfqday)){
-                    BigDecimal yesterdayClosingPrice = new BigDecimal(0);
+                    BigDecimal yesterdayClosingPrice = new BigDecimal(0.01);
                     for (List<Object> kchartItems:kcharResult.qfqday) {
 
                         KchartBO bo = new KchartBO();
@@ -88,9 +88,6 @@ public class KchartParse {
         return null;
     }
 
-    public static void main(String[] args){
-        parse("sz000839");
-    }
 
 
 }

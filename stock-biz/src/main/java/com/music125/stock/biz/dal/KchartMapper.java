@@ -9,6 +9,8 @@ package com.music125.stock.biz.dal;
 
 import com.music125.stock.biz.dal.model.KchartDO;
 
+import java.util.List;
+
 /**
  * TODO
  *
@@ -22,8 +24,8 @@ public interface KchartMapper {
     /**
      * 对象入库
      *
-     * @param kchartDO 日志 入库对象
+     * @param list 日志 入库对象
      * @return 入库数目
      */
-    Integer insert(KchartDO kchartDO);
+    Integer insert(List<KchartDO> list);
 }
