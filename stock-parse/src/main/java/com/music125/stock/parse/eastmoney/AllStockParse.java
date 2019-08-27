@@ -7,16 +7,14 @@
  */
 package com.music125.stock.parse.eastmoney;
 
-import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.annotation.Gecco;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.annotation.Request;
 import com.geccocrawler.gecco.request.HttpRequest;
 import com.geccocrawler.gecco.spider.HtmlBean;
+import lombok.Data;
 
 import java.util.List;
-
-import lombok.Data;
 
 /**
  * TODO
@@ -34,7 +32,7 @@ public class AllStockParse implements HtmlBean {
     private HttpRequest request;
 
 
-    @HtmlField(cssPath="#quotesearch > ul:nth-child(4)")
-    private String stocks;
+    @HtmlField(cssPath="#quotesearch > ul > li")
+    private List<String> stocks;
 
 }

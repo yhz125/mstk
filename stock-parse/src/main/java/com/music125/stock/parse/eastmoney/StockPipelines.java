@@ -9,6 +9,10 @@ package com.music125.stock.parse.eastmoney;
 
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
+import org.springframework.util.CollectionUtils;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * TODO
@@ -25,6 +29,18 @@ public class StockPipelines   implements Pipeline<AllStockParse> {
      */
     @Override
     public void process(AllStockParse stock) {
-        System.out.println(stock.getStocks());
+
+        if(stock!=null && !CollectionUtils.isEmpty(stock.getStocks())){
+            String s = "quote.eastmoney.com/(.*?).html";
+            for (String li:stock.getStocks()) {
+                Pattern  pattern= Pattern.compile(s);
+                Matcher ma=pattern.matcher(li);
+
+                while(ma.find()){
+                    System.out.println(ma.group(1));
+                }
+            }
+        }
+
     }
 }
