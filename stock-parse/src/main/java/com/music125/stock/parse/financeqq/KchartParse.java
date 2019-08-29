@@ -23,15 +23,11 @@ import java.util.List;
 @Slf4j
 public class KchartParse {
 
-
-    private static String url="http://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?p=1&param=%s,day,,,1000,qfq";
-
-
-
-    public static List<KchartBO> parse(String code){
+    public static List<KchartBO> parse(String code,int days){
+        String url="http://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?p=1&param=%s,day,,,%d,qfq";
         try {
 
-            url = String.format(url,code);
+            url = String.format(url,code,days);
 
             String jsonResult = HttpClientUtil.get(HttpConfig.custom().url(url));
 
@@ -40,7 +36,7 @@ public class KchartParse {
             String kdata = ParseUtils.getValueToString(rootNode, "data","");
             rootNode = mapper.readTree(kdata);
             kdata = ParseUtils.getValueToString(rootNode, code,"");
-
+            System.out.println(code);
             System.out.println(kdata);
 
             if(StringUtils.isNoneBlank(kdata)){
@@ -70,7 +66,9 @@ public class KchartParse {
                         bo.setTurnoverRate(new BigDecimal(kchartItems.get(7).toString()));
                         //交易额
                         bo.setTurnover(new BigDecimal(kchartItems.get(8).toString()));
-
+                        if(new BigDecimal(0.00).equals(bo.getClosingPrice())){
+                            bo.setClosingPrice(new BigDecimal(0.01));
+                        }
                         yesterdayClosingPrice = bo.getClosingPrice();
 
                         list.add(bo);

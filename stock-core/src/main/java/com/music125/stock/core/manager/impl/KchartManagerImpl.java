@@ -1,6 +1,8 @@
 package com.music125.stock.core.manager.impl;
 
+import com.music125.stock.biz.dal.model.CompanyDO;
 import com.music125.stock.biz.dal.model.KchartDO;
+import com.music125.stock.biz.manager.CompanyBizManager;
 import com.music125.stock.biz.manager.KchartBizManager;
 import com.music125.stock.bo.KchartBO;
 import com.music125.stock.core.manager.KchartManager;
@@ -19,16 +21,46 @@ public class KchartManagerImpl implements KchartManager {
     @Resource
     private KchartBizManager bizManager;
 
+    @Resource
+    private CompanyBizManager companyBizManager;
+
+
+
+
+    /**
+     * 批量更新
+     *
+     * @param isAll
+     */
     @Override
-    public void insert() {
+    public void crawlerKchartFill(boolean isAll) {
 
-        List<KchartBO> list = KchartParse.parse("sz000839");
-        if(!CollectionUtils.isEmpty(list)){
+        try {
+            //默认获取的天数
+            int kChartDay = 1000;
+            List<CompanyDO> allStocks = companyBizManager.getAllList();
+            if(!isAll){
+                //近10天
+                kChartDay=10;
+            }
+            for (CompanyDO stock: allStocks) {
+                if(Integer.parseInt(stock.getStockCode())>=600000
+                && Integer.parseInt(stock.getStockCode())<=600518){
+                    continue;
+                }
+                String code = stock.getStockExchange()+stock.getStockCode();
+                List<KchartBO> kChartList = KchartParse.parse(code,kChartDay);
+                List<KchartDO> doList = KchartConverter.convertListBO2DO(kChartList);
+                if(!CollectionUtils.isEmpty(doList)){
+                    bizManager.insert(doList);
+                    Thread.sleep(1000);
+                }
 
-            List<KchartDO> doList = KchartConverter.convertListBO2DO(list);
-            bizManager.insert(doList);
-
+            }
+        }catch (Exception ex){
+            System.out.println(ex);
         }
 
     }
+
 }

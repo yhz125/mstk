@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.music125.stock.biz.dal.KchartMapper">
+<mapper namespace="com.music125.stock.biz.dal.CompanyMapper">
 
 
-    <insert id="insert" keyProperty="id" keyColumn="id" useGeneratedKeys="true" parameterType="KchartDO">
-        insert into stock_kchart(
+    <insert id="insert" keyProperty="id" keyColumn="id" useGeneratedKeys="true" parameterType="CompanyDO">
+        insert into stock_company(
         <trim suffixOverrides=",">
+            stock_exchange,
             stock_code,
-            date,
-            opening_price,
-            closing_price,
-            high_price,
-            low_price,
-            trading_volume,
-            turnover_rate,
-            turnover,
-            yesterday_closing_price,
-            source_id,
             is_delete,
             gmt_created,
             gmt_modified,
@@ -24,21 +15,16 @@
         )
         values
         <foreach collection="list" item="kdo" separator=",">
-            (#{kdo.stockCode},
-            #{kdo.date},
-            #{kdo.openingPrice},
-            #{kdo.closingPrice},
-            #{kdo.highPrice},
-            #{kdo.lowPrice},
-            #{kdo.tradingVolume},
-            #{kdo.turnoverRate},
-            #{kdo.turnover},
-            #{kdo.yesterdayClosingPrice},
-            #{kdo.sourceId},
+            (#{kdo.stockExchange},
+            #{kdo.stockCode},
             0,
             now(),
             now())
         </foreach>
     </insert>
+
+    <select id="listAllCompany" resultType="CompanyDO">
+        select id,stock_exchange as 'stockExchange',stock_code as 'stockCode'  FROM stock.stock_company WHERE left(stock_code,2) in('00','30','60') and  is_delete=0;
+    </select>
 
 </mapper>
