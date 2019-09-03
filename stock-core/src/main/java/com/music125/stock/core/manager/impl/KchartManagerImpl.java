@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 @Component
@@ -41,26 +42,23 @@ public class KchartManagerImpl implements KchartManager {
             List<CompanyDO> allStocks = companyBizManager.getAllList();
             if(!isAll){
                 //近10天
-                kChartDay=10;
+                kChartDay=5;
             }
             for (CompanyDO stock: allStocks) {
-                if(Integer.parseInt(stock.getStockCode())>=600000
-                && Integer.parseInt(stock.getStockCode())<=600518){
-                    continue;
-                }
                 String code = stock.getStockExchange()+stock.getStockCode();
-                List<KchartBO> kChartList = KchartParse.parse(code,kChartDay);
+                List<KchartBO> kChartList = KchartParse.parse(code,kChartDay,stock.getLastDate());
                 List<KchartDO> doList = KchartConverter.convertListBO2DO(kChartList);
                 if(!CollectionUtils.isEmpty(doList)){
                     bizManager.insert(doList);
-                    Thread.sleep(1000);
+                    Thread.sleep(300);
                 }
-
             }
         }catch (Exception ex){
             System.out.println(ex);
         }
 
     }
+
+
 
 }

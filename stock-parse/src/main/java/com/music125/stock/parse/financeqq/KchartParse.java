@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.music125.stock.bo.KchartBO;
 import com.music125.stock.parse.financeqq.response.KchartResponse;
+import com.music125.stock.utils.DateUtils;
 import com.music125.stock.utils.ParseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ import java.util.List;
 @Slf4j
 public class KchartParse {
 
-    public static List<KchartBO> parse(String code,int days){
+    public static List<KchartBO> parse(String code,int days,String lastDate){
         String url="http://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?p=1&param=%s,day,,,%d,qfq";
         try {
 
@@ -70,7 +72,10 @@ public class KchartParse {
                             bo.setClosingPrice(new BigDecimal(0.01));
                         }
                         yesterdayClosingPrice = bo.getClosingPrice();
-
+                        //只保存之前不存在
+                        if(StringUtils.isNotBlank(lastDate) && DateUtils.parseDate(bo.getDate(),DateUtils.FORMAT_DATE_YMD).getTime()<=DateUtils.parseDate(lastDate,DateUtils.FORMAT_DATE_YMD).getTime()){
+                            continue;
+                        }
                         list.add(bo);
                     }
                     return list;

@@ -24,7 +24,17 @@
     </insert>
 
     <select id="listAllCompany" resultType="CompanyDO">
-        select id,stock_exchange as 'stockExchange',stock_code as 'stockCode'  FROM stock.stock_company WHERE left(stock_code,2) in('00','30','60') and  is_delete=0;
+        SELECT
+            cm.id,
+            cm.stock_exchange AS 'stockExchange',
+            cm.stock_code AS 'stockCode',
+            max_kchart.date AS 'lastDate'
+        FROM
+            stock.stock_company cm
+            LEFT JOIN ( SELECT stock_code, MAX( date ) AS date FROM stock_kchart GROUP BY stock_code ) max_kchart ON max_kchart.stock_code = cm.stock_code
+        WHERE
+            LEFT ( cm.stock_code, 2 ) IN ( '00', '30', '60' )
+            AND cm.is_delete = 0;
     </select>
 
 </mapper>

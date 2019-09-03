@@ -21,4 +21,9 @@ public class CompanyDO {
      */
     String stockCode;
 
+    /**
+     * 最新Kchart时间
+     */
+    String lastDate;
+
 }

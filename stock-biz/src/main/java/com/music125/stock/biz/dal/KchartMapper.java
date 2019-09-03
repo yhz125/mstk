@@ -28,4 +28,11 @@ public interface KchartMapper {
      * @return 入库数目
      */
     Integer insert(List<KchartDO> list);
+
+    /**
+     * 查询所有最新数据
+     * @return
+     */
+
+    List<KchartDO> queryAllLastKchart();
 }

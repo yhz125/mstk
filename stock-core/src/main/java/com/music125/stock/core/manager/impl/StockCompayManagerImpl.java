@@ -7,8 +7,6 @@
  */
 package com.music125.stock.core.manager.impl;
 
-import com.geccocrawler.gecco.GeccoEngine;
-import com.music125.stock.biz.dal.CompanyMapper;
 import com.music125.stock.biz.manager.CompanyBizManager;
 import com.music125.stock.bo.StockCodeBO;
 import com.music125.stock.core.manager.StockCompayManager;

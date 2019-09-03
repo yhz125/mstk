@@ -40,5 +40,13 @@
             now())
         </foreach>
     </insert>
+    <select id="queryAllLastKchart" resultType="com.music125.stock.biz.dal.model.KchartDO">
+        SELECT
+            `id`, `stock_code`, `date`, `opening_price`, `closing_price`, `high_price`, `low_price`, `trading_volume`, `turnover_rate`, `turnover`, `yesterday_closing_price`, `source_id`
+        FROM
+            stock_kchart kchart
+            INNER JOIN ( SELECT stock_code, MAX( date ) AS date FROM stock_kchart GROUP BY stock_code ) max_kchart ON kchart.stock_code = max_kchart.stock_code
+            AND kchart.date = max_kchart.date
+    </select>
 
 </mapper>
