@@ -7,6 +7,7 @@
         insert into stock_company(
         <trim suffixOverrides=",">
             stock_exchange,
+            name,
             stock_code,
             is_delete,
             gmt_created,
@@ -16,6 +17,7 @@
         values
         <foreach collection="list" item="kdo" separator=",">
             (#{kdo.stockExchange},
+            #{kdo.name},
             #{kdo.stockCode},
             0,
             now(),
@@ -33,7 +35,7 @@
             stock.stock_company cm
             LEFT JOIN ( SELECT stock_code, MAX( date ) AS date FROM stock_kchart GROUP BY stock_code ) max_kchart ON max_kchart.stock_code = cm.stock_code
         WHERE
-            LEFT ( cm.stock_code, 2 ) IN ( '00', '30', '60' )
+            LEFT ( cm.stock_code, 2 ) IN ( '00', '30', '60' ) and cm.stock_code='000001' and cm.stock_exchange='sh'
             AND cm.is_delete = 0;
     </select>
 

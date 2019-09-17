@@ -16,7 +16,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,12 +43,19 @@ public class KchartParse {
             if(StringUtils.isNoneBlank(kdata)){
                 List<KchartBO> list = new ArrayList<>();
                 KchartResponse kcharResult = JSON.parseObject(kdata, KchartResponse.class);
+                if("sh000001".equals(code)){
+                    kcharResult.setQfqday(kcharResult.getDay());
+                }
+
                 if(kcharResult!=null && !CollectionUtils.isEmpty(kcharResult.qfqday)){
                     BigDecimal yesterdayClosingPrice = new BigDecimal(0.01);
                     for (List<Object> kchartItems:kcharResult.qfqday) {
 
                         KchartBO bo = new KchartBO();
                         bo.setStockCode(code.replaceAll("sz","").replaceAll("sh",""));
+                        if("sh000001".equals(code)){
+                            bo.setStockCode("sh000001");
+                        }
                         bo.setSourceId(1);
                         bo.setDate(kchartItems.get(0).toString());
                          //上一天收盘价

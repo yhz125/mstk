@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class KchartResponse {
 
     public ArrayList<ArrayList<Object>> qfqday;
+
+    public ArrayList<ArrayList<Object>> day;
 }
 
 

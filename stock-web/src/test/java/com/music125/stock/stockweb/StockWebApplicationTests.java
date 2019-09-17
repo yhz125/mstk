@@ -30,7 +30,7 @@ public class StockWebApplicationTests {
 
     @Test
     public void crawlerKchartFill(){
-        kchartManager.crawlerKchartFill(false);
+        kchartManager.crawlerKchartFill(true);
     }
 
 

@@ -13,9 +13,14 @@ public class StockCodeBO {
 
 
     /**
-     * 上市地点(sf,sz)
+     * 地点(sf,sz)
      */
     private String exchange;
+
+    /**
+     * 名称
+     */
+    String name;
 
 
 

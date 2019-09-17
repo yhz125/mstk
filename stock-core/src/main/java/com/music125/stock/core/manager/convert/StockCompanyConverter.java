@@ -28,6 +28,7 @@ public class StockCompanyConverter {
         }
         CompanyDO result = new CompanyDO();
         result.setStockCode(bo.getCode());
+        result.setName(bo.getName());
         result.setStockExchange(bo.getExchange());
         return result;
     }

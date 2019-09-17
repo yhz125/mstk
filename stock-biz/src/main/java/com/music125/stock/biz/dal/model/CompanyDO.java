@@ -16,6 +16,8 @@ public class CompanyDO {
      */
     String stockExchange;
 
+    String name;
+
     /**
      * 证券代码
      */

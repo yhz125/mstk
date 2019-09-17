@@ -30,8 +30,8 @@ public class StockPerfectParse {
     public static List<StockCodeBO> parse(){
         try {
             List<StockCodeBO> list = new ArrayList<>();
-            String htmlSource = HttpClientUtil.get(HttpConfig.custom().url(url));
-            String s = "quote.eastmoney.com/s(.*?).html";
+            String htmlSource = HttpClientUtil.get(HttpConfig.custom().url(url).encoding("gb2312"));
+            String s = "quote.eastmoney.com/s(.*?).html\">(.*?)\\(";
             Pattern pattern= Pattern.compile(s);
             Matcher ma=pattern.matcher(htmlSource);
 
@@ -39,6 +39,7 @@ public class StockPerfectParse {
                 StockCodeBO bo = new StockCodeBO();
                 bo.setExchange("s"+ma.group(1).substring(0,1));
                 bo.setCode(ma.group(1).substring(1));
+                bo.setName(ma.group(2));
                 list.add(bo);
             }
             return list;

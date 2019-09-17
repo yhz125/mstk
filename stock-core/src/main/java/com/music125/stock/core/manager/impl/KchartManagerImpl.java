@@ -44,13 +44,16 @@ public class KchartManagerImpl implements KchartManager {
                 //近10天
                 kChartDay=5;
             }
+            int i =0;
             for (CompanyDO stock: allStocks) {
                 String code = stock.getStockExchange()+stock.getStockCode();
                 List<KchartBO> kChartList = KchartParse.parse(code,kChartDay,stock.getLastDate());
                 List<KchartDO> doList = KchartConverter.convertListBO2DO(kChartList);
                 if(!CollectionUtils.isEmpty(doList)){
                     bizManager.insert(doList);
-                    Thread.sleep(300);
+                    System.out.println("stock:"+i);
+                    i++;
+                    //Thread.sleep(300);
                 }
             }
         }catch (Exception ex){
