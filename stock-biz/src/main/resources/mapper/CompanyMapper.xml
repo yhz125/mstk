@@ -35,7 +35,7 @@
             stock.stock_company cm
             LEFT JOIN ( SELECT stock_code, MAX( date ) AS date FROM stock_kchart GROUP BY stock_code ) max_kchart ON max_kchart.stock_code = cm.stock_code
         WHERE
-            LEFT ( cm.stock_code, 2 ) IN ( '00', '30', '60' ) and cm.stock_code='000001' and cm.stock_exchange='sh'
+            LEFT ( cm.stock_code, 2 ) IN ( '00', '30', '60' ) and cm.stock_code='0000001' and cm.stock_exchange='sh'
             AND cm.is_delete = 0;
     </select>
 

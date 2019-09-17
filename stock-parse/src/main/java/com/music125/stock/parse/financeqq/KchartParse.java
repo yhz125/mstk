@@ -24,9 +24,15 @@ import java.util.List;
 @Slf4j
 public class KchartParse {
 
+    private final  static String LOCAL_SZ_CODE ="sh0000001";
+
     public static List<KchartBO> parse(String code,int days,String lastDate){
         String url="http://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get?p=1&param=%s,day,,,%d,qfq";
         try {
+
+            if(LOCAL_SZ_CODE.equals(code)){
+                code = "sh000001";
+            }
 
             url = String.format(url,code,days);
 
@@ -44,6 +50,7 @@ public class KchartParse {
                 List<KchartBO> list = new ArrayList<>();
                 KchartResponse kcharResult = JSON.parseObject(kdata, KchartResponse.class);
                 if("sh000001".equals(code)){
+                    code = LOCAL_SZ_CODE;
                     kcharResult.setQfqday(kcharResult.getDay());
                 }
 
@@ -52,10 +59,9 @@ public class KchartParse {
                     for (List<Object> kchartItems:kcharResult.qfqday) {
 
                         KchartBO bo = new KchartBO();
+
                         bo.setStockCode(code.replaceAll("sz","").replaceAll("sh",""));
-                        if("sh000001".equals(code)){
-                            bo.setStockCode("sh000001");
-                        }
+
                         bo.setSourceId(1);
                         bo.setDate(kchartItems.get(0).toString());
                          //上一天收盘价
