@@ -3,15 +3,12 @@ package com.music125.stock.biz.manager.impl;
 import com.music125.stock.biz.dal.KchartMapper;
 import com.music125.stock.biz.dal.model.KchartDO;
 import com.music125.stock.biz.manager.KchartBizManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -35,21 +32,17 @@ public class KchartBizManagerImpl implements KchartBizManager {
     @Override
     public void insert(List<KchartDO> list) {
 
-        List<KchartDO> newList= null;
-        for (KchartDO kchartDO:list) {
-            newList = new ArrayList<>();
-            newList.add(kchartDO);
-        try {
-                Integer acc = kchartMapper.insert(newList);
 
-                System.out.println("入库状态:"+acc);
-            }
+        try {
+            Integer acc = kchartMapper.insert(list);
+
+            System.out.println("入库状态:" + acc);
+        }
 
         catch (Exception ex){
             System.out.println(ex);
         }
 
-        }
     }
 
     /**
